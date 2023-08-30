@@ -2,14 +2,14 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: dynatrace-activegate-synthetic
-  namespace: dynatrace-location-ottawa
+  namespace: dynatrace-location
   labels:
     activegate: synthetic
-    syntheticLocationId: SYNTHETIC_LOCATION-6E4B316C57C35595
+    syntheticLocationId: SYNTHETIC_LOCATION-BA386D9FA314254C
 spec:
   selector:
     matchLabels:
-      syntheticLocationId: SYNTHETIC_LOCATION-6E4B316C57C35595
+      syntheticLocationId: SYNTHETIC_LOCATION-BA386D9FA314254C
   serviceName: ""
   volumeClaimTemplates:
     - metadata:
@@ -24,7 +24,7 @@ spec:
     metadata:
       labels:
         activegate: synthetic
-        syntheticLocationId: SYNTHETIC_LOCATION-6E4B316C57C35595
+        syntheticLocationId: SYNTHETIC_LOCATION-BA386D9FA314254C
     spec:
       securityContext:
         fsGroupChangePolicy: "OnRootMismatch"
@@ -79,15 +79,15 @@ spec:
               readOnly: true
           env:
             - name: DT_LOCATION_ID
-              value: SYNTHETIC_LOCATION-6E4B316C57C35595
+              value: SYNTHETIC_LOCATION-BA386D9FA314254C
             - name: DT_TENANT
               value: xmq12972
             - name: DT_SERVER
-              value: https://sg-us-east-1-18-232-217-30-prod14-virginia.live.dynatrace.com/communication,https://sg-us-east-1-35-171-91-193-prod14-virginia.live.dynatrace.com/communication,https://sg-us-east-1-18-233-41-114-prod14-virginia.live.dynatrace.com/communication,https://xmq12972.live.dynatrace.com:443/communication
+              value: https://sg-us-east-1-35-171-91-193-prod14-virginia.live.dynatrace.com/communication,https://sg-us-east-1-18-232-217-30-prod14-virginia.live.dynatrace.com/communication,https://sg-us-east-1-18-233-41-114-prod14-virginia.live.dynatrace.com/communication,https://xmq12972.live.dynatrace.com:443/communication
             - name: DT_ID_SEED_NAMESPACE
-              value: dynatrace-location-ottawa
+              value: dynatrace-location
             - name: DT_ID_SEED_K8S_CLUSTER_ID
-              value: 18a3c81c3e40.e840191
+              value: 18a46f478640.52ae7fd6
             - name: DT_CAPABILITIES
               value: synthetic,beacon_forwarder,beacon_forwarder_synthetic
           resources:
@@ -352,10 +352,10 @@ apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
   name: dynatrace-activegate-synthetic-hpa
-  namespace: dynatrace-location-ottawa
+  namespace: dynatrace-location
   labels:
     activegate: synthetic
-    syntheticLocationId: SYNTHETIC_LOCATION-6E4B316C57C35595
+    syntheticLocationId: SYNTHETIC_LOCATION-BA386D9FA314254C
 spec:
   behavior:
     scaleDown:
@@ -382,7 +382,7 @@ spec:
     - type: External
       external:
         metric:
-          name: "dsfm:synthetic.engine_utilization:filter(eq(\"dt.entity.synthetic_location\",\"SYNTHETIC_LOCATION-6E4B316C57C35595\")):merge(\"host.name\",\"dt.active_gate.working_mode\",\"dt.active_gate.id\",\"location.name\"):fold(avg)"
+          name: "dsfm:synthetic.engine_utilization:filter(eq(\"dt.entity.synthetic_location\",\"SYNTHETIC_LOCATION-BA386D9FA314254C\")):merge(\"host.name\",\"dt.active_gate.working_mode\",\"dt.active_gate.id\",\"location.name\"):fold(avg)"
         target:
           type: Value
           value: 80
