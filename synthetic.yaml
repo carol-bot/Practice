@@ -372,8 +372,8 @@ spec:
           value: 1
           periodSeconds: 600
       selectPolicy: "Min"
-  minReplicas: 2
-  maxReplicas: 5
+  minReplicas: 1
+  maxReplicas: 1
   scaleTargetRef:
     apiVersion: apps/v1
     kind: StatefulSet
